@@ -34,6 +34,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+  min-height: 100vh;
   z-index: 0;
   text-align: center;
   font-size: var(--font-scale-font-scale-lg);
@@ -42,12 +43,13 @@
 }
 
 .frame-wrapper {
-  align-self: stretch;
-  height: 869px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 141px var(--padding-80) var(--padding-80);
+  padding: 96px var(--padding-80) 64px;
   box-sizing: border-box;
 }
 
@@ -56,7 +58,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 36px;
+  gap: 24px;
 }
 
 .frame-group {
