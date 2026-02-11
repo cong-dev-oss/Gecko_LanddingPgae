@@ -70,8 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   if (revealTargets.length && window.IntersectionObserver && window.anime) {
-    let countersAnimated = false;
-
     const getSectionAnimation = (el) => {
       const base = {
         duration: 900,
@@ -171,10 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const el = entry.target;
           if (!entry.isIntersecting) return;
 
-          // Trigger counters khi metrics vào viewport
-          if (!countersAnimated && el.classList.contains("metrics2")) {
+          // Trigger counters mỗi lần metrics block vào viewport
+          if (el.classList.contains("metrics2")) {
             animateCounters();
-            countersAnimated = true;
           }
 
           const config = getSectionAnimation(el);
