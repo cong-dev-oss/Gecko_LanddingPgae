@@ -544,6 +544,7 @@ body::-webkit-scrollbar-thumb:hover {
   padding: var(--padding-20) var(--padding-12) var(--padding-12)
     var(--padding-20);
   gap: var(--gap-6);
+  flex: 1; /* đảm bảo các card có chiều cao nội dung bằng nhau */
 }
 
 .xy-dng-v {
@@ -559,7 +560,7 @@ body::-webkit-scrollbar-thumb:hover {
 .frame-parent10 {
   align-self: stretch;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch; /* giúp các card cùng chiều cao */
   justify-content: center;
   flex-wrap: wrap;
   align-content: flex-start;
