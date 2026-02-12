@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ...base,
           targets: el.querySelectorAll(".frame-child, .frame-container"),
           opacity: [0, 1],
-          translateX: (targetEl, i) => (i === 0 ? -40 : 40),
+          translateX: (targetEl, i) => (i === 0 ? [-40, 0] : [40, 0]),
           translateY: [20, 0],
           delay: anime.stagger(150),
         };
@@ -202,6 +202,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
     handleNavScroll();
     window.addEventListener("scroll", handleNavScroll);
+  }
+
+  // Mobile nav drawer
+  const navToggle = document.querySelector(".nav-toggle");
+  const mobileNav = document.querySelector(".mobile-nav");
+  const mobileOverlay = document.querySelector(".mobile-nav-overlay");
+  const mobileCloseTargets = document.querySelectorAll("[data-mobile-close]");
+
+  if (navToggle && mobileNav && mobileOverlay) {
+    const openMobileNav = () => {
+      document.body.classList.add("nav-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      mobileNav.setAttribute("aria-hidden", "false");
+      mobileOverlay.hidden = false;
+    };
+
+    const closeMobileNav = () => {
+      document.body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      mobileNav.setAttribute("aria-hidden", "true");
+      mobileOverlay.hidden = true;
+    };
+
+    navToggle.addEventListener("click", () => {
+      if (document.body.classList.contains("nav-open")) {
+        closeMobileNav();
+      } else {
+        openMobileNav();
+      }
+    });
+
+    mobileCloseTargets.forEach((el) => {
+      el.addEventListener("click", closeMobileNav);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && document.body.classList.contains("nav-open")) {
+        closeMobileNav();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 992 && document.body.classList.contains("nav-open")) {
+        closeMobileNav();
+      }
+    });
   }
 });
 

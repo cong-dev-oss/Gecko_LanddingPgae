@@ -27,7 +27,7 @@
     <!-- Root container -->
     <div class="desktop-1">
       <!-- Hero section -->
-      <section class="desktop-1-inner">
+      <section class="desktop-1-inner" id="top">
         <div class="frame-wrapper">
           <div class="frame-parent">
             <section class="frame-group">
@@ -79,7 +79,7 @@
       </section>
 
       <!-- About section -->
-      <section class="rectangle-parent">
+      <section class="rectangle-parent" id="about">
         <div class="content-container about-layout">
           <img
             class="frame-child"
@@ -191,7 +191,7 @@
       </section>
 
       <!-- Services / fields section -->
-      <main class="frame-main content-container">
+      <main class="frame-main content-container" id="services">
         <section class="frame-section">
           <div class="bage-group">
             <div class="bage">
@@ -332,7 +332,7 @@
       </main>
 
       <!-- Featured projects section -->
-      <section class="thnh-tu-ca-gecko content-container">
+      <section class="thnh-tu-ca-gecko content-container" id="projects">
         <section class="frame-parent11">
           <div class="frame-parent8">
             <div class="frame-parent13">
@@ -568,19 +568,30 @@
           <div class="nav-inner">
             <nav class="nav-iteam-parent" aria-label="Main navigation">
               <div class="nav-iteam">
-                <div class="text3">TRANG CHỦ</div>
+                <a class="text3 nav-link" href="#top">TRANG CHỦ</a>
               </div>
               <div class="nav-iteam">
-                <div class="text4">VỀ CHÚNG TÔI</div>
+                <a class="text4 nav-link" href="#about">VỀ CHÚNG TÔI</a>
               </div>
               <div class="nav-iteam">
-                <div class="text3">LĨNH VỰC</div>
+                <a class="text3 nav-link" href="#services">LĨNH VỰC</a>
               </div>
               <div class="nav-iteam">
-                <div class="text3">DỰ ÁN</div>
+                <a class="text3 nav-link" href="#projects">DỰ ÁN</a>
               </div>
             </nav>
           </div>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Mở menu điều hướng"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+          >
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+          </button>
           <div class="button-wrapper">
             <button class="button2" type="button">
               <img
@@ -599,6 +610,72 @@
             </button>
           </div>
         </div>
+        <div class="mobile-nav-overlay" data-mobile-close hidden></div>
+        <aside class="mobile-nav" id="mobile-menu" aria-hidden="true">
+          <div class="mobile-nav-header">
+            <div class="logo mobile-nav-logo" aria-label="Gecko logo">
+              <img
+                class="vector-icon2"
+                alt=""
+                src="./assets/Vector7.svg"
+              />
+              <img
+                class="vector-icon10"
+                alt=""
+                src="./assets/Vector8.svg"
+              />
+              <img
+                class="group-icon2"
+                alt=""
+                src="./assets/Group1.svg"
+              />
+              <img
+                class="vector-icon11"
+                alt=""
+                src="./assets/Vector9.svg"
+              />
+              <img
+                class="vector-icon12"
+                alt=""
+                src="./assets/Vector10.svg"
+              />
+              <img
+                class="vector-icon13"
+                alt=""
+                src="./assets/Vector11.svg"
+              />
+              <img
+                class="vector-icon7"
+                alt=""
+                src="./assets/Vector12.svg"
+              />
+              <img
+                class="vector-icon15"
+                alt=""
+                src="./assets/Vector13.svg"
+              />
+            </div>
+            <button
+              class="mobile-nav-close"
+              type="button"
+              aria-label="Đóng menu điều hướng"
+              data-mobile-close
+            >
+              &times;
+            </button>
+          </div>
+          <nav class="mobile-nav-list" aria-label="Mobile navigation">
+            <a class="mobile-nav-link" href="#top" data-mobile-close>TRANG CHỦ</a>
+            <a class="mobile-nav-link" href="#about" data-mobile-close>VỀ CHÚNG TÔI</a>
+            <a class="mobile-nav-link" href="#services" data-mobile-close>LĨNH VỰC</a>
+            <a class="mobile-nav-link" href="#projects" data-mobile-close>DỰ ÁN</a>
+          </nav>
+          <button class="button2 mobile-nav-cta" type="button">
+            <div class="label">
+              <div class="text2">NHẬN TƯ VẤN NGAY</div>
+            </div>
+          </button>
+        </aside>
       </header>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
