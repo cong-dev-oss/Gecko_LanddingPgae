@@ -347,36 +347,49 @@
               đến các hệ thống xử lý và cải tạo môi trường.
             </div>
           </div>
-          <div class="instance-parent">
-            <div class="d-n-h-thng-x-l-mi-trn-wrapper">
-              <div class="d-n-h">
-                Dự án hệ thống xử lý môi trường cho khu sản xuất
-              </div>
-            </div>
-            <div class="d-n-h-thng-x-l-mi-trn-wrapper">
-              <div class="d-n-h">
-                Dự án thi công hạ tầng kỹ thuật và công trình
-              </div>
-            </div>
-            <div class="d-n-h-thng-x-l-mi-trn-frame">
-              <div class="d-n-h">
-                Dự án xử lý và tái chế phụ phẩm công nghiệp
-              </div>
-            </div>
+          <div class="instance-parent" role="tablist" aria-label="Danh mục dự án tiêu biểu">
+            <button
+              class="project-item is-active"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              data-project-key="project-environment-system"
+            >
+              <span class="d-n-h">Dự án hệ thống xử lý môi trường cho khu sản xuất</span>
+            </button>
+            <button
+              class="project-item"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-project-key="project-infrastructure-construction"
+            >
+              <span class="d-n-h">Dự án thi công hạ tầng kỹ thuật và công trình</span>
+            </button>
+            <button
+              class="project-item"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              data-project-key="project-byproduct-recycling"
+            >
+              <span class="d-n-h">Dự án xử lý và tái chế phụ phẩm công nghiệp</span>
+            </button>
           </div>
         </section>
         <section class="rectangle-parent7">
           <img
             class="frame-child10"
             loading="lazy"
+            data-project-hero
             alt="Nhà máy và hệ thống xử lý môi trường"
             src="./assets/Rectangle-4@2x.png"
           />
           <div class="frame-parent14">
-            <div class="frame-parent15">
+            <div class="frame-parent15" data-project-card>
               <div class="lnh-vc-parent">
                 <div class="lnh-vc">Lĩnh vực</div>
-                <div class="mi-trng">Môi trường</div>
+                <div class="mi-trng" data-project-field>Môi trường</div>
               </div>
               <img
                 class="vector-icon"
@@ -385,14 +398,14 @@
               />
               <div class="lnh-vc-parent">
                 <div class="lnh-vc">Vai trò</div>
-                <div class="mi-trng">Tư vấn, thiết kế và triển khai</div>
+                <div class="mi-trng" data-project-role>Tư vấn, thiết kế và triển khai</div>
               </div>
               <img
                 class="vector-icon"
                 alt=""
                 src="./assets/Vector-3.svg"
               />
-              <div class="kho-st-hin">
+              <div class="kho-st-hin" data-project-description>
                 Khảo sát hiện trạng, đề xuất giải pháp và triển khai hệ thống xử
                 lý phù hợp với quy mô hoạt động, giúp doanh nghiệp vận hành ổn
                 định và đáp ứng yêu cầu môi trường.
@@ -401,6 +414,7 @@
             <img
               class="frame-child10"
               loading="lazy"
+              data-project-sub
               alt="Đội ngũ kỹ sư Gecko tại công trường"
               src="./assets/Rectangle-5@2x.png"
             />

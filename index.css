@@ -164,6 +164,8 @@ body::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .prefix-icon {
@@ -197,6 +199,7 @@ body::-webkit-scrollbar-thumb:hover {
   width: var(--width-22);
   position: relative;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .button2 {
@@ -207,6 +210,8 @@ body::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .text2 {
@@ -217,6 +222,32 @@ body::-webkit-scrollbar-thumb:hover {
   font-family: var(--C1-Typography-Helvetica-Neue);
   color: var(--foreground-brand-on-background);
   text-align: left;
+}
+
+.button:hover {
+  background-color: rgba(95, 184, 0, 0.16);
+  border-color: #2d8c44;
+  box-shadow: 0 8px 20px rgba(30, 73, 42, 0.16);
+}
+
+.button:hover .suffix-icon {
+  transform: translateX(3px);
+}
+
+.button2:hover {
+  background-color: #2d8c44;
+  box-shadow: 0 10px 24px rgba(30, 73, 42, 0.24);
+}
+
+.button:active,
+.button2:active {
+  transform: translateY(1px);
+}
+
+.button:focus-visible,
+.button2:focus-visible {
+  outline: 2px solid var(--Color-Gecko-400);
+  outline-offset: 2px;
 }
 
 .rectangle-parent {
@@ -656,6 +687,42 @@ body::-webkit-scrollbar-thumb:hover {
   gap: var(--gap-8);
   text-align: left;
   color: var(--Color-Base-black);
+}
+
+.project-item {
+  width: 100%;
+  border: none;
+  border-bottom: 0.5px solid var(--Color-Base-black);
+  background-color: var(--Color-Base-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-16);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.project-item:last-child {
+  border-bottom: none;
+}
+
+.project-item:hover {
+  background-color: var(--Color-Green-50);
+}
+
+.project-item:focus-visible {
+  outline: 2px solid var(--Color-Gecko-400);
+  outline-offset: 2px;
+}
+
+.project-item.is-active {
+  background-color: var(--Color-Gecko-25);
+}
+
+.project-item.is-active .d-n-h {
+  color: var(--Color-Green-500);
+  font-weight: 700;
 }
 
 .d-n-h-thng-x-l-mi-trn-wrapper {
@@ -1258,6 +1325,7 @@ body::-webkit-scrollbar-thumb:hover {
   font-size: 15px;
   line-height: 24px;
   font-weight: 500;
+  font-family: var(--C1-Typography-Helvetica-Neue);
 }
 
 .mobile-nav-link:hover {

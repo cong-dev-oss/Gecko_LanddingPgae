@@ -249,5 +249,95 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // Featured projects tabs
+  const projectItems = document.querySelectorAll(".project-item[data-project-key]");
+  const projectHeroImage = document.querySelector("[data-project-hero]");
+  const projectSubImage = document.querySelector("[data-project-sub]");
+  const projectField = document.querySelector("[data-project-field]");
+  const projectRole = document.querySelector("[data-project-role]");
+  const projectDescription = document.querySelector("[data-project-description]");
+  const projectCard = document.querySelector("[data-project-card]");
+
+  const projectData = {
+    "project-environment-system": {
+      heroImage: "./assets/Rectangle-4@2x.png",
+      heroAlt: "Nhà máy và hệ thống xử lý môi trường",
+      fieldValue: "Môi trường",
+      roleValue: "Tư vấn, thiết kế và triển khai",
+      description:
+        "Khảo sát hiện trạng, đề xuất giải pháp và triển khai hệ thống xử lý phù hợp với quy mô hoạt động, giúp doanh nghiệp vận hành ổn định và đáp ứng yêu cầu môi trường.",
+      subImage: "./assets/Rectangle-5@2x.png",
+      subAlt: "Đội ngũ kỹ sư Gecko tại công trường",
+    },
+    "project-infrastructure-construction": {
+      heroImage: "./assets/Rectangle-3@2x.png",
+      heroAlt: "Dự án thi công hạ tầng kỹ thuật và công trình",
+      fieldValue: "Xây dựng hạ tầng",
+      roleValue: "Tổng thầu thi công và giám sát",
+      description:
+        "Tổ chức thi công đồng bộ hạ tầng kỹ thuật, tối ưu tiến độ và kiểm soát chất lượng theo yêu cầu vận hành thực tế của công trình công nghiệp và dân dụng.",
+      subImage: "./assets/Rectangle-35@2x.png",
+      subAlt: "Hạ tầng vận tải và bến bãi phục vụ dự án",
+    },
+    "project-byproduct-recycling": {
+      heroImage: "./assets/Rectangle-32@2x.png",
+      heroAlt: "Dự án xử lý và tái chế phụ phẩm công nghiệp",
+      fieldValue: "Tái chế phụ phẩm",
+      roleValue: "Thiết kế giải pháp và vận hành hệ thống",
+      description:
+        "Triển khai quy trình thu gom, xử lý và tái chế phụ phẩm công nghiệp nhằm giảm tải môi trường, đồng thời tạo ra vật liệu đầu ra phục vụ chuỗi sản xuất bền vững.",
+      subImage: "./assets/Rectangle-34@2x.png",
+      subAlt: "Sản xuất vật liệu từ tro xỉ và phụ phẩm",
+    },
+  };
+
+  if (
+    projectItems.length &&
+    projectHeroImage &&
+    projectSubImage &&
+    projectField &&
+    projectRole &&
+    projectDescription
+  ) {
+    const setActiveProject = (projectKey) => {
+      const selectedProject = projectData[projectKey];
+      if (!selectedProject) return;
+
+      projectItems.forEach((item) => {
+        const isSelected = item.dataset.projectKey === projectKey;
+        item.classList.toggle("is-active", isSelected);
+        item.setAttribute("aria-selected", isSelected ? "true" : "false");
+      });
+
+      projectHeroImage.src = selectedProject.heroImage;
+      projectHeroImage.alt = selectedProject.heroAlt;
+      projectField.textContent = selectedProject.fieldValue;
+      projectRole.textContent = selectedProject.roleValue;
+      projectDescription.textContent = selectedProject.description;
+      projectSubImage.src = selectedProject.subImage;
+      projectSubImage.alt = selectedProject.subAlt;
+
+      if (window.anime) {
+        anime({
+          targets: [projectHeroImage, projectCard || projectDescription, projectSubImage],
+          opacity: [0.5, 1],
+          duration: 260,
+          easing: "easeOutQuad",
+        });
+      }
+    };
+
+    projectItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        setActiveProject(item.dataset.projectKey);
+      });
+    });
+
+    const initialProjectKey =
+      Array.from(projectItems).find((item) => item.classList.contains("is-active"))?.dataset
+        .projectKey || projectItems[0].dataset.projectKey;
+    setActiveProject(initialProjectKey);
+  }
 });
 
