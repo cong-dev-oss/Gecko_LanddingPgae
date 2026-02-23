@@ -757,10 +757,15 @@ body::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: flex-end;
   gap: var(--gap-24);
+  position: relative;
   text-align: left;
   font-size: var(--font-scale-font-scale-md);
   color: var(--Color-Base-black);
   font-family: var(--C1-Typography-Helvetica-Neue);
+}
+
+.rectangle-parent7.is-switching {
+  pointer-events: none;
 }
 
 .frame-child10 {
@@ -772,6 +777,8 @@ body::-webkit-scrollbar-thumb:hover {
   overflow: hidden;
   max-height: 100%;
   object-fit: cover;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
 .frame-parent14 {
@@ -792,6 +799,8 @@ body::-webkit-scrollbar-thumb:hover {
   align-items: flex-start;
   padding: var(--padding-12);
   gap: 16px;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
 .lnh-vc-parent {
@@ -820,6 +829,12 @@ body::-webkit-scrollbar-thumb:hover {
   position: relative;
   line-height: var(--line-height-line-height-md);
   display: inline-block;
+  will-change: transform, opacity;
+}
+
+[data-project-card] .lnh-vc-parent,
+[data-project-card] .vector-icon {
+  will-change: transform, opacity;
 }
 
 .footer-content {

@@ -300,16 +300,17 @@ document.addEventListener("DOMContentLoaded", () => {
     projectRole &&
     projectDescription
   ) {
-    const setActiveProject = (projectKey) => {
-      const selectedProject = projectData[projectKey];
-      if (!selectedProject) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const projectPanel = document.querySelector(".rectangle-parent7");
+    const projectMetaTargets = projectCard
+      ? projectCard.querySelectorAll(".lnh-vc-parent, .vector-icon, [data-project-description]")
+      : [];
 
-      projectItems.forEach((item) => {
-        const isSelected = item.dataset.projectKey === projectKey;
-        item.classList.toggle("is-active", isSelected);
-        item.setAttribute("aria-selected", isSelected ? "true" : "false");
-      });
+    let activeProjectKey = null;
+    let pendingProjectKey = null;
+    let isSwitching = false;
 
+    const applyProjectContent = (selectedProject) => {
       projectHeroImage.src = selectedProject.heroImage;
       projectHeroImage.alt = selectedProject.heroAlt;
       projectField.textContent = selectedProject.fieldValue;
@@ -317,14 +318,129 @@ document.addEventListener("DOMContentLoaded", () => {
       projectDescription.textContent = selectedProject.description;
       projectSubImage.src = selectedProject.subImage;
       projectSubImage.alt = selectedProject.subAlt;
+    };
 
-      if (window.anime) {
-        anime({
-          targets: [projectHeroImage, projectCard || projectDescription, projectSubImage],
-          opacity: [0.5, 1],
-          duration: 260,
-          easing: "easeOutQuad",
-        });
+    const preloadProjectImages = (selectedProject) => {
+      const sources = [selectedProject.heroImage, selectedProject.subImage];
+      return Promise.all(
+        sources.map(
+          (source) =>
+            new Promise((resolve) => {
+              const image = new Image();
+              image.onload = resolve;
+              image.onerror = resolve;
+              image.src = source;
+            })
+        )
+      );
+    };
+
+    const setActiveProject = async (projectKey, options = {}) => {
+      const { immediate = false } = options;
+      const selectedProject = projectData[projectKey];
+      if (!selectedProject) return;
+      if (projectKey === activeProjectKey) return;
+
+      if (isSwitching) {
+        pendingProjectKey = projectKey;
+        return;
+      }
+
+      isSwitching = true;
+      if (projectPanel) {
+        projectPanel.classList.add("is-switching");
+      }
+
+      projectItems.forEach((item) => {
+        const isSelected = item.dataset.projectKey === projectKey;
+        item.classList.toggle("is-active", isSelected);
+        item.setAttribute("aria-selected", isSelected ? "true" : "false");
+      });
+
+      if (!window.anime || reducedMotion || immediate) {
+        applyProjectContent(selectedProject);
+        activeProjectKey = projectKey;
+        isSwitching = false;
+        if (projectPanel) {
+          projectPanel.classList.remove("is-switching");
+        }
+        if (pendingProjectKey && pendingProjectKey !== projectKey) {
+          const nextProjectKey = pendingProjectKey;
+          pendingProjectKey = null;
+          setActiveProject(nextProjectKey);
+        } else {
+          pendingProjectKey = null;
+        }
+        return;
+      }
+
+      try {
+        await Promise.all([
+          preloadProjectImages(selectedProject),
+          anime({
+            targets: [projectHeroImage, projectCard || projectDescription, projectSubImage],
+            opacity: [1, 0],
+            translateY: [0, -18],
+            scale: [1, 0.98],
+            duration: 280,
+            easing: "easeInQuad",
+          }).finished,
+        ]);
+      } catch (_error) {
+        // Fallback to continue updating even if animation promise is interrupted.
+      }
+
+      applyProjectContent(selectedProject);
+
+      try {
+        await anime
+          .timeline({
+            easing: "easeOutCubic",
+            duration: 620,
+          })
+          .add({
+            targets: [projectHeroImage, projectSubImage],
+            opacity: [0, 1],
+            translateY: [26, 0],
+            scale: [1.06, 1],
+            delay: anime.stagger(100),
+          })
+          .add(
+            {
+              targets: projectCard || projectDescription,
+              opacity: [0, 1],
+              translateY: [20, 0],
+              scale: [0.985, 1],
+              duration: 520,
+            },
+            "-=440"
+          )
+          .add(
+            {
+              targets: projectMetaTargets,
+              opacity: [0, 1],
+              translateY: [16, 0],
+              delay: anime.stagger(65),
+              duration: 420,
+            },
+            "-=420"
+          ).finished;
+      } catch (_error) {
+        // Ignore interrupted animation and continue state synchronization.
+      }
+
+      activeProjectKey = projectKey;
+      isSwitching = false;
+      if (projectPanel) {
+        projectPanel.classList.remove("is-switching");
+      }
+
+      if (pendingProjectKey && pendingProjectKey !== projectKey) {
+        const nextProjectKey = pendingProjectKey;
+        pendingProjectKey = null;
+        setActiveProject(nextProjectKey);
+      } else {
+        pendingProjectKey = null;
       }
     };
 
@@ -337,7 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const initialProjectKey =
       Array.from(projectItems).find((item) => item.classList.contains("is-active"))?.dataset
         .projectKey || projectItems[0].dataset.projectKey;
-    setActiveProject(initialProjectKey);
+    setActiveProject(initialProjectKey, { immediate: true });
   }
 });
 
