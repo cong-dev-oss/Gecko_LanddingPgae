@@ -624,6 +624,14 @@ body::-webkit-scrollbar-thumb:hover {
   flex-direction: column;
   min-height: 0;
   font-family: inherit;
+  position: relative;
+  isolation: isolate;
+}
+
+.solution-card-media {
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
 }
 
 .solution-card-image {
@@ -643,6 +651,9 @@ body::-webkit-scrollbar-thumb:hover {
   flex-direction: column;
   gap: 6px;
   flex: 1;
+  position: relative;
+  z-index: 1;
+  background: #fff;
 }
 
 .solution-card-title {
@@ -674,6 +685,9 @@ body::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  z-index: 1;
+  background: #fff;
 }
 
 .solution-card-action-icon {
