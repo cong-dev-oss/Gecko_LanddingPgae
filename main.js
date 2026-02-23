@@ -70,6 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   if (revealTargets.length && window.IntersectionObserver && window.anime) {
+    const revealedSections = new WeakSet();
+
     const getSectionAnimation = (el) => {
       const base = {
         duration: 900,
@@ -167,19 +169,22 @@ document.addEventListener("DOMContentLoaded", () => {
       (entries) => {
         entries.forEach((entry) => {
           const el = entry.target;
-          if (!entry.isIntersecting) return;
+          if (!entry.isIntersecting || revealedSections.has(el)) return;
 
           // Trigger counters mỗi lần metrics block vào viewport
           if (el.classList.contains("metrics2")) {
             animateCounters();
           }
 
+          revealedSections.add(el);
           const config = getSectionAnimation(el);
           anime(config);
+          observer.unobserve(el);
         });
       },
       {
-        threshold: 0.2,
+        threshold: 0.22,
+        rootMargin: "0px 0px -8% 0px",
       }
     );
 
